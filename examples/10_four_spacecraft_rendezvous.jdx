@@ -1,0 +1,181 @@
+// 10_four_spacecraft_rendezvous.jdx
+// Apsis Four-Spacecraft Orbital Rendezvous & Mission Planning Simulation
+
+import formulas
+
+print("     Apsis Four-Spacecraft Mission Control")
+
+// 1. Mission Crew & Spacecraft Identification
+
+define Cristiano = 1
+define Giovanni = 2
+define Noah = 3
+define Jits = 4
+
+print("")
+print("  1. crew identification")
+
+print("Commander Cristiano : Spacecraft Alpha  | ID #", Cristiano)
+print("Pilot Giovanni      : Spacecraft Bravo  | ID #", Giovanni)
+print("Mission Specialist Noah : Spacecraft Charlie | ID #", Noah)
+print("Flight Engineer Jits : Spacecraft Delta | ID #", Jits)
+
+// 2. Physical Constants & Mission Configuration
+
+define mu_mission = 3.986004418e14*m^3/s^2
+define radius_mission = 6371000*m
+
+// Illustrative circular-orbit altitudes.
+
+define altitude_cristiano = 300000*m
+define altitude_giovanni = 450000*m
+define altitude_noah = 600000*m
+define altitude_jits = 800000*m
+
+define radius_cristiano = radius_mission + altitude_cristiano
+define radius_giovanni = radius_mission + altitude_giovanni
+define radius_noah = radius_mission + altitude_noah
+define radius_jits = radius_mission + altitude_jits
+
+// 3. Initial Orbital State Estimation
+
+print("")
+print("  2. Initial Orbital State Estimation")
+
+// Circular orbital velocity: v = sqrt(mu/r)
+
+define velocity_cristiano = sqrt(mu_mission/radius_cristiano)
+define velocity_giovanni = sqrt(mu_mission/radius_giovanni)
+define velocity_noah = sqrt(mu_mission/radius_noah)
+define velocity_jits = sqrt(mu_mission/radius_jits)
+
+// Circular orbital period: T = 2*pi*sqrt(r^3/mu)
+
+define period_cristiano = 2*PI*sqrt(radius_cristiano^3/mu_mission)
+define period_giovanni = 2*PI*sqrt(radius_giovanni^3/mu_mission)
+define period_noah = 2*PI*sqrt(radius_noah^3/mu_mission)
+define period_jits = 2*PI*sqrt(radius_jits^3/mu_mission)
+
+print("")
+print("Spacecraft Cristiano")
+print("  Orbital altitude:", altitude_cristiano/(1000*m), "km")
+print("  Orbital velocity:", velocity_cristiano/(1000*m/s), "km/s")
+print("  Orbital period:", period_cristiano/(60*s), "minutes")
+
+print("")
+print("Spacecraft Giovanni")
+print("  Orbital altitude:", altitude_giovanni/(1000*m), "km")
+print("  Orbital velocity:", velocity_giovanni/(1000*m/s), "km/s")
+print("  Orbital period:", period_giovanni/(60*s), "minutes")
+
+print("")
+print("Spacecraft Noah")
+print("  Orbital altitude:", altitude_noah/(1000*m), "km")
+print("  Orbital velocity:", velocity_noah/(1000*m/s), "km/s")
+print("  Orbital period:", period_noah/(60*s), "minutes")
+
+print("")
+print("Spacecraft Jits")
+print("  Orbital altitude:", altitude_jits/(1000*m), "km")
+print("  Orbital velocity:", velocity_jits/(1000*m/s), "km/s")
+print("  Orbital period:", period_jits/(60*s), "minutes")
+
+// 4. Hohmann Transfer Planning
+//
+// Transfer Spacecraft Alpha from Cristiano's orbit
+// to Spacecraft Delta's orbit.
+//
+// Assumptions:
+// - Initial and final orbits are circular.
+// - Orbits are coplanar.
+// - Maneuvers are impulsive.
+// - Atmospheric drag and perturbations are neglected.
+
+print("")
+print("  3. Hohmann Transfer Planning")
+print("Target: Spacecraft Alpha -> Spacecraft Delta")
+
+define transfer_radius_initial = radius_cristiano
+define transfer_radius_final = radius_jits
+
+define transfer_semimajor_axis = (transfer_radius_initial + transfer_radius_final)/2
+
+// Vis-viva equation: v^2 = mu*(2/r - 1/a)
+
+define transfer_velocity_initial = sqrt(mu_mission*((2/transfer_radius_initial) - (1/transfer_semimajor_axis)))
+define transfer_velocity_final = sqrt(mu_mission*((2/transfer_radius_final) - (1/transfer_semimajor_axis)))
+
+// First burn raises the apoapsis.
+// Second burn circularizes the orbit at the higher altitude.
+
+define transfer_delta_v1 = transfer_velocity_initial - velocity_cristiano
+define transfer_delta_v2 = velocity_jits - transfer_velocity_final
+
+// Both burns are prograde for this higher-orbit transfer.
+
+define transfer_delta_v_total = transfer_delta_v1 + transfer_delta_v2
+
+// Half the transfer ellipse's orbital period.
+
+define transfer_time = PI*sqrt(transfer_semimajor_axis^3/mu_mission)
+
+print("")
+print("Transfer Orbit Parameters")
+print("  Initial orbital radius:", transfer_radius_initial/(1000*m), "km")
+print("  Final orbital radius:", transfer_radius_final/(1000*m), "km")
+print("  Transfer semi-major axis:", transfer_semimajor_axis/(1000*m), "km")
+
+print("")
+print("Maneuver Budget")
+print("  Departure delta-v:", transfer_delta_v1/(m/s), "m/s")
+print("  Arrival delta-v:", transfer_delta_v2/(m/s), "m/s")
+print("  Total delta-v:", transfer_delta_v_total/(m/s), "m/s")
+print("  Transfer duration:", transfer_time/(60*s), "minutes")
+print("  Transfer duration:", transfer_time/(3600*s), "hours")
+
+// 5. Specific Orbital Energy Comparison
+//
+// Circular-orbit specific mechanical energy:
+// epsilon = -mu/(2*r)
+//
+// Use negative_one to avoid the unsupported unary minus operator.
+
+print("")
+print("  4. Orbital Energy Comparison")
+
+define negative_one = 0 - 1
+
+define energy_cristiano = negative_one*mu_mission/(2*radius_cristiano)
+define energy_giovanni = negative_one*mu_mission/(2*radius_giovanni)
+define energy_noah = negative_one*mu_mission/(2*radius_noah)
+define energy_jits = negative_one*mu_mission/(2*radius_jits)
+
+print("Specific orbital energy (J/kg):")
+print("  Cristiano:", energy_cristiano/(m^2/s^2))
+print("  Giovanni :", energy_giovanni/(m^2/s^2))
+print("  Noah     :", energy_noah/(m^2/s^2))
+print("  Jits     :", energy_jits/(m^2/s^2))
+
+// 6. Mission Validation
+
+print("")
+print("  5. Mission Validation")
+
+if (transfer_delta_v_total > 0*m/s) {
+    print("  Transfer delta-v budget calculated.")
+}
+
+if (transfer_time > 0*s) {
+    print("  Transfer duration calculated.")
+}
+
+if (radius_cristiano > radius_mission) {
+    print("  Initial spacecraft orbit is above Earth's surface.")
+}
+
+if (radius_jits > radius_cristiano) {
+    print("  Target orbit is higher than the departure orbit.")
+}
+
+print("")
+print("     Analysis Completed")
