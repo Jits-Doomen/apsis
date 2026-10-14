@@ -1,0 +1,26 @@
+
+import formulas
+
+print("Kinematics")
+
+define distance = 100*m
+define elapsed_time = 10*s
+
+define velocity = average_velocity(distance, elapsed_time)
+
+print("Average velocity:", velocity)
+
+define initial_velocity = 0*m/s
+define acceleration = 2*m/s^2
+define duration = 10*s
+
+define final_velocity = kinematic_final_velocity(
+    initial_velocity,
+    acceleration,
+    duration
+)
+
+print("Initial velocity:", initial_velocity)
+print("Acceleration:", acceleration)
+print("Duration:", duration)
+print("Final velocity:", final_velocity)

@@ -1,0 +1,24 @@
+
+import formulas
+
+print("Units and Dimensions")
+
+define distance = 7*km
+define time = 1000*s
+
+define distance_metres = 7000*m
+define speed = distance_metres / time
+
+print("Distance:", distance)
+print("Distance in metres:", distance_metres)
+print("Elapsed time:", time)
+print("Average speed:", speed)
+
+define acceleration = 9.81*m/s^2
+define mass = 1000*kg
+define force = mass * acceleration
+
+print("")
+print("Mass:", mass)
+print("Gravitational acceleration:", acceleration)
+print("Weight force:", force)

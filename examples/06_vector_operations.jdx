@@ -1,0 +1,21 @@
+
+import formulas
+
+print("Vector opps")
+
+define a = vec(3, 4, 0)
+define b = vec(1, 2, 3)
+
+print("Vector A:", a)
+print("Vector B:", b)
+
+define magnitude_a = norm(a)
+define dot_product = dot(a, b)
+define cross_product = cross(a, b)
+define cross_magnitude = norm(cross_product)
+
+print("")
+print("Magnitude of A:", magnitude_a)
+print("Dot product:", dot_product)
+print("Cross product:", cross_product)
+print("Cross product magnitude:", cross_magnitude)

@@ -1,0 +1,17 @@
+
+import formulas
+
+print("Basic Mathematics")
+
+print("PI:", PI)
+print("Speed of light:", c)
+print("Gravitational constant:", G)
+
+define radius = 5
+define circle_area = PI * radius^2
+define sphere_volume = (4/3) * PI * radius^3
+
+print("")
+print("Circle radius:", radius)
+print("Circle area:", circle_area)
+print("Sphere volume:", sphere_volume)

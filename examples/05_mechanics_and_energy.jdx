@@ -1,0 +1,20 @@
+
+import formulas
+
+print("Mechanics and energy")
+
+define mass = 1200*kg
+define acceleration = 3*m/s^2
+
+define force = newton_second_law(mass, acceleration)
+
+print("Vehicle mass:", mass)
+print("Acceleration:", acceleration)
+print("Net force:", force)
+
+define speed = 25*m/s
+define energy = kinetic_energy(mass, speed)
+
+print("")
+print("Vehicle speed:", speed)
+print("Kinetic energy:", energy)

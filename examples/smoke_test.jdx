@@ -1,0 +1,221 @@
+import formulas
+
+print(" APSIS Scientific Regression Tests")
+
+define passed = 0
+define failed = 0
+
+print("")
+print("[1] FUNDAMENTAL CONSTANTS")
+
+if (abs(PI - 3.141592653589793) < 1e-12) {
+    print("PASS: PI")
+    passed = passed + 1
+} else {
+    print("FAIL: PI =", PI)
+    failed = failed + 1
+}
+
+if (abs(c / (299792458*m/s) - 1) < 1e-12) {
+    print("PASS: Speed of light")
+    passed = passed + 1
+} else {
+    print("FAIL: Speed of light =", c)
+    failed = failed + 1
+}
+
+if (abs(G / (6.67430e-11*m^3/(kg*s^2)) - 1) < 1e-8) {
+    print("PASS: Gravitational constant")
+    passed = passed + 1
+} else {
+    print("FAIL: Gravitational constant =", G)
+    failed = failed + 1
+}
+
+print("")
+print("[2] KINEMATICS")
+
+define velocity = average_velocity(20*m, 2*s)
+
+if (abs(velocity / (10*m/s) - 1) < 1e-8) {
+    print("PASS: Average velocity")
+    passed = passed + 1
+} else {
+    print("FAIL: Average velocity =", velocity)
+    failed = failed + 1
+}
+
+define acceleration = average_acceleration(10*m/s, 2*s)
+
+if (abs(acceleration / (5*m/s^2) - 1) < 1e-8) {
+    print("PASS: Average acceleration")
+    passed = passed + 1
+} else {
+    print("FAIL: Average acceleration =", acceleration)
+    failed = failed + 1
+}
+
+define final_velocity = kinematic_final_velocity(10*m/s, 2*m/s^2, 5*s)
+
+if (abs(final_velocity / (20*m/s) - 1) < 1e-8) {
+    print("PASS: Kinematic final velocity")
+    passed = passed + 1
+} else {
+    print("FAIL: Final velocity =", final_velocity)
+    failed = failed + 1
+}
+
+print("")
+print("[3] MECHANICS AND ENERGY")
+
+define energy = kinetic_energy(2*kg, 5*m/s)
+
+if (abs(energy / (25*kg*m^2/s^2) - 1) < 1e-8) {
+    print("PASS: Kinetic energy")
+    passed = passed + 1
+} else {
+    print("FAIL: Kinetic energy =", energy)
+    failed = failed + 1
+}
+
+define force = newton_second_law(10*kg, 3*m/s^2)
+
+if (abs(force / (30*kg*m/s^2) - 1) < 1e-8) {
+    print("PASS: Newton's second law")
+    passed = passed + 1
+} else {
+    print("FAIL: Newton's second law =", force)
+    failed = failed + 1
+}
+
+print("")
+print("[4] ORBITAL MECHANICS")
+
+define earth_radius = 6771000*m
+define orbital_speed = circular_orbital_velocity(M_earth, earth_radius)
+
+if (abs(orbital_speed / (7672.6*m/s) - 1) < 1e-4) {
+    print("PASS: Circular orbital velocity")
+    passed = passed + 1
+} else {
+    print("FAIL: Circular orbital velocity =", orbital_speed)
+    failed = failed + 1
+}
+
+define escape_speed = escape_velocity(M_earth, R_earth)
+
+if (abs(escape_speed / (11186*m/s) - 1) < 1e-3) {
+    print("PASS: Earth escape velocity")
+    passed = passed + 1
+} else {
+    print("FAIL: Earth escape velocity =", escape_speed)
+    failed = failed + 1
+}
+
+define schwarzschild = schwarzschild_radius(M_earth)
+
+if (abs(schwarzschild / (0.0088701*m) - 1) < 1e-4) {
+    print("PASS: Earth Schwarzschild radius")
+    passed = passed + 1
+} else {
+    print("FAIL: Schwarzschild radius =", schwarzschild)
+    failed = failed + 1
+}
+
+print("")
+print("[5] ASTRONOMY")
+
+define modulus = distance_modulus(10)
+
+if (abs(modulus) < 1e-8) {
+    print("PASS: Distance modulus at 10 parsecs")
+    passed = passed + 1
+} else {
+    print("FAIL: Distance modulus =", modulus)
+    failed = failed + 1
+}
+
+define parallax = parallax_distance(0.1)
+
+if (abs(parallax / (3.08567758149e17*m) - 1) < 1e-8) {
+    print("PASS: Parallax distance at 0.1 arcseconds")
+    passed = passed + 1
+} else {
+    print("FAIL: Parallax distance =", parallax)
+    failed = failed + 1
+}
+
+print("")
+print("[6] VECTOR OPERATIONS")
+
+define vector_a = vec(3, 4, 0)
+define vector_b = vec(1, 2, 3)
+
+define vector_norm = norm(vector_a)
+
+if (abs(vector_norm - 5) < 1e-8) {
+    print("PASS: Vector norm")
+    passed = passed + 1
+} else {
+    print("FAIL: Vector norm =", vector_norm)
+    failed = failed + 1
+}
+
+define dot_result = dot(vector_a, vector_b)
+
+if (abs(dot_result - 11) < 1e-8) {
+    print("PASS: Vector dot product")
+    passed = passed + 1
+} else {
+    print("FAIL: Dot product =", dot_result)
+    failed = failed + 1
+}
+
+
+define cross_result = cross(vector_a, vector_b)
+define cross_norm = norm(cross_result)
+
+if (abs(cross_norm - 15.1327459504) < 1e-6) {
+    print("PASS: Vector cross product")
+    passed = passed + 1
+} else {
+    print("FAIL: Cross product norm =", cross_norm)
+    failed = failed + 1
+}
+
+print("")
+print("[7] DIMENSIONAL ARITHMETIC")
+
+define distance = 7000*km
+define elapsed_time = 1000*s
+define calculated_speed = distance / elapsed_time
+
+if (abs(calculated_speed / (7000*m/s) - 1) < 1e-8) {
+    print("PASS: Distance divided by time")
+    passed = passed + 1
+} else {
+    print("FAIL: Dimensional speed =", calculated_speed)
+    failed = failed + 1
+}
+
+define converted_distance = 7*km
+
+if (abs(converted_distance / (7000*m) - 1) < 1e-8) {
+    print("PASS: Kilometre-to-metre conversion")
+    passed = passed + 1
+} else {
+    print("FAIL: Distance conversion =", converted_distance)
+    failed = failed + 1
+}
+
+print("")
+print(" APSIS TEST RESULTS")
+print("Passed:", passed)
+print("Failed:", failed)
+print("Total:", passed + failed)
+
+if (failed == 0) {
+    print("RESULT: ALL TESTS PASSED")
+} else {
+    print("RESULT: FAILURES DETECTED")
+}

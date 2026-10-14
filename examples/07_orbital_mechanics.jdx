@@ -1,0 +1,25 @@
+
+import formulas
+
+print("Orbital Mechanics")
+
+define altitude = 400000*m
+define orbital_radius = R_earth + altitude
+
+define orbital_speed = circular_orbital_velocity(
+    M_earth,
+    orbital_radius
+)
+
+print("Orbital altitude:", altitude)
+print("Orbital radius:", orbital_radius)
+print("Circular orbital velocity:", orbital_speed)
+
+define escape_speed = escape_velocity(M_earth, R_earth)
+
+print("")
+print("Earth escape velocity:", escape_speed)
+
+define black_hole_radius = schwarzschild_radius(M_earth)
+
+print("Earth Schwarzschild radius:", black_hole_radius)

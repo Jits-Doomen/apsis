@@ -1,0 +1,153 @@
+// 09_crew_telemetry_simulation.jdx
+// Apsis Scientific Crew Telemetry & Orbital Rendezvous Simulation
+
+print("      Apsis Mission Control Log       ")
+
+// 1. Crew Identification & Initialization
+
+define Teddie = 17
+define Dennis = 53
+define Barbara = 48
+
+print("")
+print("  > Commander Teddie  : Unit Identifier #", Teddie)
+print("  > Pilot Dennis      : Unit Identifier #", Dennis)
+print("  > Systems Barbara   : Unit Identifier #", Barbara)
+
+// Physical Constants
+// Use unique names to avoid collisions with Apsis built-ins.
+
+define mu_earth_sim = 3.986004418e14*m^3/s^2
+define earth_radius_sim = 6371000*m
+
+// 2. Crew Biometric Telemetry & Consumables
+
+print("")
+print("  1. Biometric Telemetry & Consumables")
+
+// Illustrative biometric values derived from crew identifiers.
+// These are simulated values, not real medical measurements.
+
+define hr_teddie = 60 + (Teddie % 15)
+define hr_dennis = 65 + (Dennis % 20)
+define hr_barbara = 58 + (Barbara % 12)
+
+define o2_rate_teddie = 0.84*(hr_teddie/60)
+define o2_rate_dennis = 0.84*(hr_dennis/60)
+define o2_rate_barbara = 0.84*(hr_barbara/60)
+
+define total_o2_consumption_rate = o2_rate_teddie + o2_rate_dennis + o2_rate_barbara
+
+print("Heart Rate (BPM):")
+print("  - Teddie  :", hr_teddie, "bpm")
+print("  - Dennis  :", hr_dennis, "bpm")
+print("  - Barbara :", hr_barbara, "bpm")
+
+print("O2 Consumption Rate (simulated kg/day):")
+print("  - Teddie  :", o2_rate_teddie)
+print("  - Dennis  :", o2_rate_dennis)
+print("  - Barbara :", o2_rate_barbara)
+print("Total Crew Consumption:", total_o2_consumption_rate, "kg O2 per day")
+
+// Reserve calculations
+
+define o2_reserve_kg = 250.0
+define days_remaining = o2_reserve_kg/total_o2_consumption_rate
+
+print("Life Support Endurance:", days_remaining, "mission days remaining")
+
+// 3. Individual Module Orbital Telemetry
+
+print("")
+print("  2. Individual Module Orbital Telemetry")
+
+// Altitudes above Earth's surface, in kilometres.
+
+define alt_teddie = 400.0 + (Teddie*5.0)
+define alt_dennis = 400.0 + (Dennis*3.0)
+define alt_barbara = 400.0 + (Barbara*4.0)
+
+// Orbital radii in metres.
+
+define r_teddie = earth_radius_sim + alt_teddie*1000*m
+define r_dennis = earth_radius_sim + alt_dennis*1000*m
+define r_barbara = earth_radius_sim + alt_barbara*1000*m
+
+// Circular orbital velocities.
+
+define v_teddie = sqrt(mu_earth_sim/r_teddie)
+define v_dennis = sqrt(mu_earth_sim/r_dennis)
+define v_barbara = sqrt(mu_earth_sim/r_barbara)
+
+// Circular orbital periods.
+
+define T_teddie = 2*PI*sqrt(r_teddie^3/mu_earth_sim)
+define T_dennis = 2*PI*sqrt(r_dennis^3/mu_earth_sim)
+define T_barbara = 2*PI*sqrt(r_barbara^3/mu_earth_sim)
+
+print("Module Alpha (Teddie):")
+print("  > Radius:", r_teddie/(1000*m), "km")
+print("  > Velocity:", v_teddie/(1000*m/s), "km/s")
+print("  > Period:", T_teddie/(60*s), "minutes")
+
+print("Module Bravo (Dennis):")
+print("  > Radius:", r_dennis/(1000*m), "km")
+print("  > Velocity:", v_dennis/(1000*m/s), "km/s")
+print("  > Period:", T_dennis/(60*s), "minutes")
+
+print("Module Charlie (Barbara):")
+print("  > Radius:", r_barbara/(1000*m), "km")
+print("  > Velocity:", v_barbara/(1000*m/s), "km/s")
+print("  > Period:", T_barbara/(60*s), "minutes")
+
+// 4. Rendezvous Maneuver Planning
+
+print("")
+print("  SECTOR 3: Rendezvous Maneuver Planning")
+print("Planning Hohmann transfer from Dennis's orbit to Barbara's orbit...")
+
+define r1 = r_dennis
+define r2 = r_barbara
+
+// Semi-major axis of the transfer orbit.
+
+define a_transfer = (r1 + r2)/2
+
+// Velocities at transfer-orbit periapsis and apoapsis.
+
+define v_trans_peri = sqrt(mu_earth_sim*((2/r1) - (1/a_transfer)))
+define v_trans_apo = sqrt(mu_earth_sim*((2/r2) - (1/a_transfer)))
+
+// Required delta-v burns.
+
+define delta_v1 = v_trans_peri - v_dennis
+define delta_v2 = v_barbara - v_trans_apo
+define total_delta_v = delta_v1 + delta_v2
+
+// Half the transfer orbit's period.
+
+define t_transfer = PI*sqrt(a_transfer^3/mu_earth_sim)
+
+print("Hohmann Transfer Results:")
+print("  > Transfer Semi-Major Axis:", a_transfer/(1000*m), "km")
+print("  > Delta-V Burn 1 (Insertion):", delta_v1)
+print("  > Delta-V Burn 2 (Circular):", delta_v2)
+print("  > Total Delta-V Required:", total_delta_v)
+print("  > Transfer Duration:", t_transfer/(60*s), "minutes")
+
+// 5. System Validation & Telemetry Checksum
+
+print("")
+print("  5. System Validation & Telemetry Checksum")
+
+define crew_checksum = (Teddie*1000) + (Dennis*100) + Barbara
+
+print("Telemetry Validation String: APSIS-CRW-", crew_checksum)
+
+if (total_delta_v > 0*m/s) {
+    print("Stat: Rendezvous maneuver trajectory mathematically verified.")
+}
+
+print("=")
+print("       Simulation Completed Successfully          ")
+print("=")

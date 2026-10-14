@@ -1,0 +1,12 @@
+
+print("Hello, APSIS!")
+print("My first time trying this useless language!")
+
+define distance = 100
+define time = 20
+define speed = distance / time
+
+print("")
+print("Distance:", distance, "m")
+print("Time:", time, "s")
+print("Average speed:", speed, "m/s")

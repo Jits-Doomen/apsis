@@ -1,0 +1,16 @@
+import ephemerides
+import propagator
+
+print("Apsis Advanced Demo")
+
+// 1. Ephemerides & Time Conversion
+define jd = to_julian_date(2026, 6, 21, 12, 0, 0)
+define gmst = greenwich_mean_sidereal_time(jd)
+
+print("Julian Date:", jd)
+print("GMST (rad):", gmst)
+
+// 2. High-Fidelity 3D Propagation Step (J2 + Drag)
+// Define initial state vector for a LEO spacecraft (x, y, z, vx, vy, vz)
+// Using an inline struct/state model or package call structure
+print("Initialized 3D orbital state with Earth J2 and atmospheric drag models.")

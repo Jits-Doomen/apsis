@@ -1,0 +1,23 @@
+# Build outputs
+build/
+cmake-build-*/
+out/
+Debug/
+Release/
+
+# Compiled binaries and debug symbols
+*.exe
+*.dll
+*.obj
+*.pdb
+*.lib
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+
+# Python artifacts
+__pycache__/
+*.pyc
+.pytest_cache/

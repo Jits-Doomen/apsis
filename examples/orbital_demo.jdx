@@ -1,0 +1,22 @@
+import formulas
+
+print("Apsis Orbital Demo")
+
+// 1. Orbital Mechanics (Keep expression on a single line)
+define altitude = 400000 * m
+define orbital_radius = R_earth + altitude
+
+define orbital_speed = circular_orbital_velocity(M_earth, orbital_radius)
+
+print("Orbital altitude:", altitude)
+print("Orbital speed:", orbital_speed)
+
+// 2. Native Vector Operations
+define v1 = vec(3, 4, 0)
+define v2 = vec(1, 2, 3)
+
+define dot_product = dot(v1, v2)
+define cross_norm = norm(cross(v1, v2))
+
+print("Dot product:", dot_product)
+print("Cross product magnitude:", cross_norm)

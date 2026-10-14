@@ -1,0 +1,21 @@
+
+import formulas
+
+print("Astronomy")
+
+define distance_parsecs = 10
+define modulus = distance_modulus(distance_parsecs)
+
+print("Distance:", distance_parsecs, "parsecs")
+print("Distance modulus:", modulus)
+
+define parallax_arcseconds = 0.1
+define stellar_distance = parallax_distance(parallax_arcseconds)
+
+print("")
+print("Stellar parallax:", parallax_arcseconds, "arcseconds")
+print("Distance in metres:", stellar_distance)
+
+define distance_in_parsecs = 1 / parallax_arcseconds
+
+print("Distance in parsecs:", distance_in_parsecs)
