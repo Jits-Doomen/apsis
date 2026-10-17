@@ -19,7 +19,7 @@ ___
 
 1. Clone or download this repository to your computer:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Apsis.git
+   git clone https://github.com/Jits-Doomen/Apsis.git
    cd Apsis
    ```
 
